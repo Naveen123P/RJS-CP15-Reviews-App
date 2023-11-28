@@ -3,33 +3,57 @@ import {Component} from 'react'
 import './index.css'
 
 class ReviewsCarousel extends Component {
-  state = {}
+  state = {index: 0}
+
+  onChangeReviewForward = () => {
+    const {index} = this.state
+    if (index >= 0) {
+      this.state(prevState => ({index: prevState.index + 1}))
+    }
+  }
+
+  onChangeReviewBackward = () => {
+    const {index} = this.state
+    if (index <= 3) {
+      this.state(prevState => ({index: prevState.index - 1}))
+    }
+  }
 
   render() {
+    const {index} = this.state
     const {reviewsList} = this.props
-    const {}
+    console.log(reviewsList[index])
+    const {imgUrl, username, companyName, description} = reviewsList[0]
 
     return (
       <div className="bg-container">
         <h1 className="heading">Reviews</h1>
         <div className="review-container">
-          <button type="button" onClick={this.onChangeReview}>
+          <button
+            type="button"
+            onClick={this.onChangeReviewBackward}
+            value="leftArrow"
+          >
             <img
               src="https://assets.ccbp.in/frontend/react-js/left-arrow-img.png"
-              alt="..."
+              alt="leftArrow"
               className="arrow-img"
             />
           </button>
           <div className="person-container">
-            <img src={} alt={'...'} className="person-img" />
-            <h1 className="person-name">{}</h1>
-            <p>{}</p>
-            <p>{}</p>
+            <img src={imgUrl} alt={username} className="person-img" />
+            <p className="person-name">{username}</p>
+            <p>{companyName}</p>
+            <p>{description}</p>
           </div>
-          <button type="button" onClick={this.onChangeReview}>
+          <button
+            type="button"
+            onClick={this.onChangeReviewForward}
+            value="rightArrow"
+          >
             <img
               src="https://assets.ccbp.in/frontend/react-js/right-arrow-img.png"
-              alt="..."
+              alt="rightArrow"
               className="arrow-img"
             />
           </button>
@@ -38,3 +62,5 @@ class ReviewsCarousel extends Component {
     )
   }
 }
+
+export default ReviewsCarousel
