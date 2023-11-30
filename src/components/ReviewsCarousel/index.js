@@ -7,15 +7,15 @@ class ReviewsCarousel extends Component {
 
   onChangeReviewForward = () => {
     const {index} = this.state
-    if (index >= 0) {
-      this.state(prevState => ({index: prevState.index + 1}))
+    if (index >= 0 && index < 3) {
+      this.setState(prevState => ({index: prevState.index + 1}))
     }
   }
 
   onChangeReviewBackward = () => {
     const {index} = this.state
-    if (index <= 3) {
-      this.state(prevState => ({index: prevState.index - 1}))
+    if (index > 0 && index <= 3) {
+      this.setState(prevState => ({index: prevState.index - 1}))
     }
   }
 
@@ -23,20 +23,21 @@ class ReviewsCarousel extends Component {
     const {index} = this.state
     const {reviewsList} = this.props
     console.log(reviewsList[index])
-    const {imgUrl, username, companyName, description} = reviewsList[0]
+    const {imgUrl, username, companyName, description} = reviewsList[index]
 
     return (
       <div className="bg-container">
         <h1 className="heading">Reviews</h1>
         <div className="review-container">
           <button
+            data-testid="leftArrow"
             type="button"
             onClick={this.onChangeReviewBackward}
             value="leftArrow"
           >
             <img
               src="https://assets.ccbp.in/frontend/react-js/left-arrow-img.png"
-              alt="leftArrow"
+              alt="left arrow"
               className="arrow-img"
             />
           </button>
@@ -47,13 +48,14 @@ class ReviewsCarousel extends Component {
             <p>{description}</p>
           </div>
           <button
+            data-testid="rightArrow"
             type="button"
             onClick={this.onChangeReviewForward}
             value="rightArrow"
           >
             <img
               src="https://assets.ccbp.in/frontend/react-js/right-arrow-img.png"
-              alt="rightArrow"
+              alt="right arrow"
               className="arrow-img"
             />
           </button>
